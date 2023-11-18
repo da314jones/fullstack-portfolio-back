@@ -1,4 +1,4 @@
-/c ?_dev;
+/c journal_entries_dev;
 
 INSERT INTO ? (
     "value headers from table"
