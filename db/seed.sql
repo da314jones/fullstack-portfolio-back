@@ -1,6 +1,6 @@
 /c journal_dev;
 
-INSERT INTO ActivitySuggestions (title, description, moodRating)
+INSERT INTO activities (title, description, moodRating)
 VALUES 
 ('Take a Walk', 'A short walk in nature can boost your mood.', 3, false),
 ('Read a Book', 'Reading is a great way to escape and relax.', 4, true),
@@ -14,7 +14,7 @@ VALUES
 ('Exercise', 'Engaging in physical exercise can boost your mood.', 4, true),
 ('Painting', 'Express yourself through painting or drawing.', 3, false);
 
-INSERT INTO JournalEntries (date, mood, description)
+INSERT INTO entries (date, mood, description)
 VALUES 
 ('2023-03-01', 5, 'Felt quite good today.', 'Felt a sense of camaraderie at the veteran meeting.'),
 ('2023-03-02', 3, 'Today was challenging.', 'Reminded of service times.'),

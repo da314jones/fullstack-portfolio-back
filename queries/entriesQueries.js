@@ -11,7 +11,7 @@ const getAllEntries = async () => {
 };
 
 //show
-const getOneEntry = async () => {
+const getOneEntry = async (id) => {
   try {
     const oneEntry = await db.one("SELECT * FROM entries WHERE id=$1", id);
     return oneEntry;
@@ -21,9 +21,11 @@ const getOneEntry = async () => {
 };
 
 //Create
-const createEntry = async () => {
+const createEntry = async (entry) => {
+    const { date, mood, description, activity_id, activity_rating, serviceRelatedNotes } = entry;
     try {
-        const newEntry = await db.one("INSERT INTO entries JournalEntries (date, mood, description, activity_id, activity_rating) VALUES ($1, $2, $3, $4, $5) RETURNING *");
+        const newEntry = await db.one("INSERT entries (date, mood, description, activity_id, activity_rating) VALUES ($1, $2, $3, $4, $5) RETURNING *", [date, mood, description, activity_id, activity_rating]
+        );
         return newEntry;
     }  catch (error) {
         return error;
@@ -33,7 +35,7 @@ const createEntry = async () => {
 //delete
 const deleteEntry = async (id) => {
     try {
-        const deletedEntry = await db.one("DELETE FROM entries WHERE id=$! RETURNING *", id);
+        const deletedEntry = await db.one("DELETE FROM entries WHERE id=$1 RETURNING *", id);
         return deletedEntry;
     } catch (error) {
         return error
@@ -42,10 +44,21 @@ const deleteEntry = async (id) => {
 
 //update
 const updateEntry = async (id, entry) => {
+    const { date, mood, description, activity_id, activity_rating, serviceRelatedNotes } = entry
     try {
-        const updatedEntry = await db.one("UPDATE JournalEntries SET date=$!, mood=$2, description=$3, activity_id=$4, activity_rating=$5 WHERE id=$6 RETURNING *", { id, ...entry });
+        const updatedEntry = await db.one("UPDATE entries SET date=$1, mood=$2, description=$3, activity_id=$4, activity_rating=$5 service_related_notes=$6 WHERE id=$7 RETURNING *", [date, mood, description, activity_id, activity_rating, serviceRelatedNotes, id]);
         return updatedEntry;
     } catch (error) {
         return error;
     }
 };
+
+
+
+module.exports = {
+    getAllEntries,
+    getOneEntry,
+    createEntry,
+    deleteEntry,
+    updateEntry,
+}

@@ -11,7 +11,7 @@ CREATE TABLE users (
     years_of_service INTEGER
 );
 
-CREATE TABLE ActivitySuggestions (
+CREATE TABLE activities (
     id SERIAL PRIMARY KEY,
     title VARCHAR(255) NOT NULL,
     description TEXT,
@@ -21,7 +21,7 @@ CREATE TABLE ActivitySuggestions (
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
-CREATE TABLE JournalEntries (
+CREATE TABLE entries (
     id SERIAL PRIMARY KEY,
     date DATE NOT NULL,
     mood INTEGER NOT NULL,

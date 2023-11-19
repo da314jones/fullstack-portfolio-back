@@ -3,8 +3,8 @@ const db = require("../db/dbConfig.js");
 //index
 const getAllActivities = async (entry_id) => {
   try {
-    const allActivities = await db.one(
-      "SELECT * FROM ActivitySuggestions");
+    const allActivities = await db.any(
+      "SELECT * FROM activities");
     return allActivities;
   } catch (error) {
     return error;
@@ -15,7 +15,7 @@ const getAllActivities = async (entry_id) => {
 const getOneActivity = async (id) => {
   try {
     const oneActivity = await db.one(
-      "SELECT * FROM ActivitySuggestions WHERE id=$1",
+      "SELECT * FROM activities WHERE id=$1",
       id
     );
     return oneActivity;
@@ -26,10 +26,43 @@ const getOneActivity = async (id) => {
 
 //create
 const createActivity = async (activity) => {
-    const { title, description, moodRating } = activity;
+    const { title, description, moodRating, isVeteranSpecific } = activity;
     try {INTO 
-        const newActivity  = await db.one("INSERT INTO ActivitySuggestions (title, description, moodRating) VALUES ($1, $2, $3) RETURNING *",);
+        const newActivity  = await db.one("INSERT activities (title, description, moodRating, is_veteran_specific) VALUES ($1, $2, $3, $4) RETURNING *", [title, description, moodRating, isVeteranSpecific]
+        );
+        return newActivity;
     } catch (error) {
         return error;
     }
 };
+
+//delete
+const deleteActivity = async (id, entry) => {
+    try {
+        const deletedActivity = await db.one("DELETE FROM activities WHERE id=$1 RETURNING *", id);
+        return deleteActivity;
+    } catch (error) {
+        return error
+    }
+};
+
+//update
+const updateActivity = async (id, entry) => {
+    const { title, description, moodRating, isVeteranSpecific } = activity
+    try {
+        const updatedActivity = await db.one("UPDATE activities SET title=$1, description=$2, moodRating=$3, is_veteran_specific=$4,WHERE id=$5 RETURNING *", [title, description, moodRating, isVeteranSpecific, id]
+        );
+        return updatedActivity;
+    } catch (error) {
+        return error
+    };
+};
+
+
+module.exports = {
+    getAllActivities,
+    getOneActivity,
+    createActivity,
+    deleteActivity,
+    updateActivity,
+}
