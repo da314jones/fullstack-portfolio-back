@@ -41,8 +41,8 @@ entries.get("/",  async (req, res) => {
             try {
                 const { id } = req.pqrams;
                 const deletedEntry = await deleteEntry(id);
-                if (deleytedEntry) {
-                    res.status(200).json({ sucess: true, payload: { data: deletedEntry } });
+                if (deletedEntry) {
+                    res.status(200).json({ success: true, payload: { data: deletedEntry } });
                 } else {
                     res.status(404).json({ error: " Entry not found." });
                 }
@@ -54,5 +54,5 @@ entries.get("/",  async (req, res) => {
         entries.put ("/:id", checkEntryIndex , async (req, res) => {
             const { id }= req.params;
             const entry = req.body;
-            
+
         })

@@ -4,9 +4,7 @@ const db = require("../db/dbConfig.js");
 const getAllActivities = async (entry_id) => {
   try {
     const allActivities = await db.one(
-      "SELECT * FROM ActivitySuggestions WHERE entry_id=$1",
-      entry_id
-    );
+      "SELECT * FROM ActivitySuggestions");
     return allActivities;
   } catch (error) {
     return error;
@@ -14,7 +12,7 @@ const getAllActivities = async (entry_id) => {
 };
 
 //show
-const getOneActivities = async (id) => {
+const getOneActivity = async (id) => {
   try {
     const oneActivity = await db.one(
       "SELECT * FROM ActivitySuggestions WHERE id=$1",
@@ -27,10 +25,11 @@ const getOneActivities = async (id) => {
 };
 
 //create
-const createActivity = async (id) => {
-    try {
-        const newActivity  = await db.one("")
+const createActivity = async (activity) => {
+    const { title, description, moodRating } = activity;
+    try {INTO 
+        const newActivity  = await db.one("INSERT INTO ActivitySuggestions (title, description, moodRating) VALUES ($1, $2, $3) RETURNING *",);
     } catch (error) {
         return error;
     }
-}
+};
