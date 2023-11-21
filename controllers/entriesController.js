@@ -11,10 +11,11 @@ const {
 // const {} = require("../validations/checkEntries.js");
 
 const activitiesController = require("./activitiesController.js");
-entries.use(".:entries_id/activities", activitiesController);
+entries.use("/:entries_id/activities", activitiesController);
 
 //index
 entries.get("/", async (req, res) => {
+  console.log("In index route######")
   const allEntries = await getAllEntries();
   if (req.query.order) {
     allEntries.sort((a, b) => {

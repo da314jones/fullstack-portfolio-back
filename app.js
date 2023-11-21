@@ -15,6 +15,9 @@ app.get("/", (req,res) => {
     res.send("My Portfolio App Sever is Running")
 })
 
+const entriesController = require("./controllers/entriesController.js")
+app.use("/entries", entriesController)
+
 // registration Endpoint
 app.post("/api/register", async (req, res) => {
     const { email, password, serviceBranch, yearsOfService } = req.body;
@@ -60,8 +63,6 @@ app.post("/api/login", async (req, res) => {
     }
 });
 
-const entriesController = require("./controllers/entriesController.js")
-app.use("/entries", entriesController)
 
 
 app.get("*", (req, res) => {

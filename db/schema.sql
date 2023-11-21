@@ -1,3 +1,4 @@
+-- Drop existing database and create a new one
 DROP DATABASE IF EXISTS journal_dev;
 CREATE DATABASE journal_dev;
 
