@@ -6,12 +6,12 @@ const {
   createEntry,
   deleteEntry,
   updateEntry,
-} = require("..queries/entries");
+} = require("../queries/entries.js");
 
-const {} = require("../validations/checkEntries.js");
+// const {} = require("../validations/checkEntries.js");
 
-const activitiesController = require("./activityControllers.js");
-entries.use(".:entries_id/activities", activityController);
+const activitiesController = require("./activitiesController.js");
+entries.use(".:entries_id/activities", activitiesController);
 
 //index
 entries.get("/", async (req, res) => {
@@ -27,11 +27,11 @@ entries.get("/", async (req, res) => {
     if (req.query.order === "asc") res.json(allEntries);
     else if (req.query.order === "desc") res.json(allEntries.reverse());
     else res.redirect("/order should be asc or desc");
-  } else res.status(200).json(allEntires);
+  } else res.status(200).json(allEntries);
 });
 
 //show
-entries.get("/:id", checkEntryIndex, async (req, res) => {
+entries.get("/:id", async (req, res) => {
   const { id } = req.params;
   const oneEntry = await getOneEntry(id);
   if (oneEntry) {
@@ -52,7 +52,7 @@ entries.post("/", async (req, res) => {
 })
 
 //delete
-entries.delete("/:id", checkEntryIndex, async (req, res) => {
+entries.delete("/:id", async (req, res) => {
   try {
     const { id } = req.params;
     const deletedEntry = await deleteEntry(id);
@@ -66,7 +66,7 @@ entries.delete("/:id", checkEntryIndex, async (req, res) => {
   }
 });
 
-entries.put("/:id", checkEntryIndex, async (req, res) => {
+entries.put("/:id", async (req, res) => {
   const { id } = req.params;
   const updatedEntry = await updateEntry(req.body);
   if (updatedEntry.id) {

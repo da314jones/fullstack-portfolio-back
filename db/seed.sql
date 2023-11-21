@@ -1,6 +1,6 @@
-/c journal_dev;
+\c journal_dev;
 
-INSERT INTO activities (title, description, moodRating)
+INSERT INTO activities (title, description, mood_rating, is_veteran_specific)
 VALUES 
 ('Take a Walk', 'A short walk in nature can boost your mood.', 3, false),
 ('Read a Book', 'Reading is a great way to escape and relax.', 4, true),
@@ -14,17 +14,17 @@ VALUES
 ('Exercise', 'Engaging in physical exercise can boost your mood.', 4, true),
 ('Painting', 'Express yourself through painting or drawing.', 3, false);
 
-INSERT INTO entries (date, mood, description)
+INSERT INTO entries (date, mood, description, service_related_notes, custom_activity, activity_rating, activity_id)
 VALUES 
-('2023-03-01', 5, 'Felt quite good today.', 'Felt a sense of camaraderie at the veteran meeting.'),
-('2023-03-02', 3, 'Today was challenging.', 'Reminded of service times.'),
-('2023-03-03', 4, 'Better than yesterday, had a nice walk.', ''),
-('2023-03-04', 2, 'Feeling down, not a great day.', 'Struggling with service memories.'),
-('2023-03-05', 5, 'Very productive and positive day.', ''),
-('2023-03-06', 4, 'Content and calm.',''),
-('2023-03-07', 1, 'Struggled a lot today.', 'Had a tough therapy session, but it was necessary.'),
-('2023-03-08', 2, 'A bit low, but managed to get some work done.', ''),
-('2023-03-09', 3, 'Average day, nothing special.'), '',
-('2023-03-10', 4, 'Feeling good, had a good conversation with a friend.', 'Talked to an old service buddy.');
-
-
+('2023-03-01', 5, 'Feeling optimistic, had a good start to the month.', NULL, 'Morning meditation', 4, NULL),
+('2023-03-02', 2, 'Felt stressed due to work.', 'Anxiety about upcoming reunion', NULL, NULL, 3),
+('2023-03-03', 4, 'Today was better, managed to finish my tasks.', NULL, 'Evening yoga session', 5, NULL),
+('2023-03-04', 3, 'Average day, nothing much to report.', 'Missed my old unit', NULL, NULL, 6),
+('2023-03-05', 4, 'Productive and positive day.', NULL, 'Cooked a new recipe', 4, NULL),
+('2023-03-06', 1, 'Struggled with some personal issues.', 'Had a tough therapy session', NULL, NULL, 7),
+('2023-03-07', 5, 'Great day with family.', NULL, 'Family hiking trip', 5, NULL),
+('2023-03-08', 3, 'Normal day, work was fine.', NULL, 'Read a new book', 3, NULL),
+('2023-03-09', 2, 'Feeling a bit low today.', 'Had some flashbacks', NULL, NULL, 8),
+('2023-03-10', 4, 'Feeling better, met an old friend.', NULL, 'Went for a walk in the park', 4, NULL),
+('2023-03-11', 3, 'Normal day, nothing special.', NULL, 'Tried painting', 3, NULL),
+('2023-03-12', 5, 'Really good day, felt energetic and happy.', NULL, 'Participated in a community event', 5, NULL);

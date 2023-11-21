@@ -27,10 +27,10 @@ CREATE TABLE entries (
     mood INTEGER NOT NULL,
     description TEXT NOT NULL,
     service_related_notes TEXT,
-    activity_id INTEGER NOT NULL,
-    activity_rating INTEGER,
+    custom_activity TEXT, 
+    activity_rating INTEGER CHECK (activity_rating >= 1 AND activity_rating <= 5),
+    activity_id INTEGER,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (activity_id) REFERENCES activities(id)
 );
-
