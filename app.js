@@ -15,8 +15,12 @@ app.get("/", (req,res) => {
     res.send("My Portfolio App Sever is Running")
 })
 
-const entriesController = require("./controllers/entriesController.js")
-app.use("/entries", entriesController)
+const entriesController = require("./controllers/entriesController.js");
+const activitiesController = require("./controllers/activitiesController.js")
+
+app.use("/entries", entriesController);
+app.use("/activities", activitiesController);
+
 
 // registration Endpoint
 app.post("/api/register", async (req, res) => {

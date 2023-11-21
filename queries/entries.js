@@ -24,7 +24,7 @@ const getOneEntry = async (id) => {
 const createEntry = async (entry) => {
     const { date, mood, description, activity_id, activity_rating, serviceRelatedNotes } = entry;
     try {
-        const newEntry = await db.one("INSERT entries (date, mood, description, activity_id, activity_rating) VALUES ($1, $2, $3, $4, $5) RETURNING *", [date, mood, description, activity_id, activity_rating]
+        const newEntry = await db.one("INSERT INTO entries (date, mood, description, activity_id, activity_rating) VALUES ($1, $2, $3, $4, $5) RETURNING *", [date, mood, description, activity_id, activity_rating]
         );
         return newEntry;
     }  catch (error) {

@@ -15,7 +15,6 @@ entries.use("/:entries_id/activities", activitiesController);
 
 //index
 entries.get("/", async (req, res) => {
-  console.log("In index route######")
   const allEntries = await getAllEntries();
   if (req.query.order) {
     allEntries.sort((a, b) => {
