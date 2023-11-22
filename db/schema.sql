@@ -21,9 +21,15 @@ CREATE TABLE activities (
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
+CREATE TABLE moods (
+    id SERIAL PRIMARY KEY,
+    adjective VARCHAR(255) NOT NULL
+);
+
 CREATE TABLE entries (
     id SERIAL PRIMARY KEY,
     date DATE NOT NULL,
+    mood_adjective_id INTEGER NOT NULL,
     mood INTEGER NOT NULL,
     description TEXT NOT NULL,
     service_related_notes TEXT,
@@ -32,5 +38,6 @@ CREATE TABLE entries (
     activity_id INTEGER,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (activity_id) REFERENCES activities(id)
-);
+    FOREIGN KEY (activity_id) REFERENCES activities(id),
+    FOREIGN KEY (mood_adjective_id) REFERENCES moods(id)
+)
