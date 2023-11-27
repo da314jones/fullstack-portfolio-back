@@ -1,6 +1,5 @@
 const db = require("../db/dbConfig.js");
 
-//index
 const getAllEntries = async () => {
   try {
     const allEntries = await db.any("SELECT * FROM entries");
@@ -10,7 +9,6 @@ const getAllEntries = async () => {
   }
 };
 
-//show
 const getOneEntry = async (id) => {
   try {
     const oneEntry = await db.one("SELECT * FROM entries WHERE id=$1", id);
@@ -20,45 +18,92 @@ const getOneEntry = async (id) => {
   }
 };
 
-//Create
 const createEntry = async (entry) => {
-  const { date, mood_adjective_id, mood, description, service_related_notes, custom_activity, activity_rating, activity_id } = entry;
+  const {
+    date,
+    rating_before,
+    adjective_before,
+    description,
+    service_related_notes,
+    activity,
+    custom_activity,
+    adjective_after,
+    rating_after,
+  } = entry;
   try {
-      const newEntry = await db.one("INSERT INTO entries (date, mood_adjective_id, mood, description, service_related_notes, custom_activity, activity_rating, activity_id) VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *", [date, mood_adjective_id, mood, description, service_related_notes, custom_activity, activity_rating, activity_id]);
-      return newEntry;
+    const newEntry = await db.one(
+      "INSERT INTO entries (date, rating_before, adjective_before, description, service_related_notes, activity, custom_activity, adjective_after, rating_after) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING *",
+      [
+        date,
+        rating_before,
+        adjective_before,
+        description,
+        service_related_notes,
+        activity,
+        custom_activity,
+        adjective_after,
+        rating_after,
+      ]
+    );
+    return newEntry;
   } catch (error) {
-      return error;
+    return error;
+  }
+};
+
+const deleteEntry = async (id) => {
+  try {
+    const deletedEntry = await db.one(
+      "DELETE FROM entries WHERE id=$1 RETURNING *",
+      id
+    );
+    return deletedEntry;
+  } catch (error) {
+    return error;
   }
 };
 
 
-//delete
-const deleteEntry = async (id) => {
-    try {
-        const deletedEntry = await db.one("DELETE FROM entries WHERE id=$1 RETURNING *", id);
-        return deletedEntry;
-    } catch (error) {
-        return error
-    }
-};
-
-//update
 const updateEntry = async (id, entry) => {
-  const { date, mood_adjective_id, mood, description, service_related_notes, custom_activity, activity_rating, activity_id } = entry;
+  const {
+    date,
+    rating_before,
+    adjective_before,
+    description,
+    service_related_notes,
+    activity,
+    custom_activity,
+    adjective_after,
+    rating_after,
+  } = entry;
   try {
-      const updatedEntry = await db.one("UPDATE entries SET date=$1, mood_adjective_id=$2, mood=$3, description=$4, service_related_notes=$5, custom_activity=$6, activity_rating=$7, activity_id=$8 WHERE id=$9 RETURNING *", [date, mood_adjective_id, mood, description, service_related_notes, custom_activity, activity_rating, activity_id, id]);
-      return updatedEntry;
+    const updatedEntry = await db.one(
+      "UPDATE entries SET date=$1, rating_before=$2, adjective_before=$3, description=$4, service_related_notes=$5, activity=$6, custom_activity=$7, adjective_after=$8, rating_after=$9 WHERE id=$10 RETURNING *",
+      [
+        date,
+        rating_before,
+        adjective_before,
+        description,
+        service_related_notes,
+        activity,
+        custom_activity,
+        adjective_after,
+        rating_after,
+        id,
+      ]
+    );
+    return updatedEntry;
   } catch (error) {
-      return error;
+    return error;
   }
 };
 
 
 
 module.exports = {
-    getAllEntries,
-    getOneEntry,
-    createEntry,
-    deleteEntry,
-    updateEntry,
-}
+  getAllEntries,
+  getOneEntry,
+  createEntry,
+  deleteEntry,
+  updateEntry,
+};

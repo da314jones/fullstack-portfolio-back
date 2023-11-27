@@ -11,33 +11,16 @@ CREATE TABLE users (
     years_of_service INTEGER NOT NULL
 );
 
-CREATE TABLE activities (
-    id SERIAL PRIMARY KEY,
-    title VARCHAR(255) NOT NULL,
-    description TEXT,
-    mood_rating INTEGER,
-    is_veteran_specific BOOLEAN DEFAULT false,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
-
-CREATE TABLE moods (
-    id SERIAL PRIMARY KEY,
-    adjective VARCHAR(255) NOT NULL
-);
-
 CREATE TABLE entries (
     id SERIAL PRIMARY KEY,
     date DATE NOT NULL,
-    mood_adjective_id INTEGER NOT NULL,
-    mood INTEGER NOT NULL,
+    rating_before INTEGER CHECK (rating_before >= 1 AND rating_before <= 5),
+    adjective_before VARCHAR(255), -- Assuming you store the mood adjective directly
     description TEXT NOT NULL,
     service_related_notes TEXT,
-    custom_activity TEXT, 
-    activity_rating INTEGER CHECK (activity_rating >= 1 AND activity_rating <= 5),
-    activity_id INTEGER,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (activity_id) REFERENCES activities(id),
-    FOREIGN KEY (mood_adjective_id) REFERENCES moods(id)
-)
+    activity VARCHAR(255),
+    custom_activity TEXT,
+    adjective_after VARCHAR(255), -- Assuming you store the mood adjective directly
+    rating_after INTEGER CHECK (rating_after >= 1 AND rating_after <= 5),
+    updated_at DATE DEFAULT CURRENT_DATE
+);

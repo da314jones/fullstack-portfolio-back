@@ -8,19 +8,13 @@ const {
   updateEntry,
 } = require("../queries/entries.js");
 
-// const {} = require("../validations/checkEntries.js");
-
-const activitiesController = require("./activitiesController.js");
-entries.use("/:entries_id/activities", activitiesController);
-
-//index
 entries.get("/", async (req, res) => {
   const allEntries = await getAllEntries();
   if (req.query.order) {
     allEntries.sort((a, b) => {
       if (req.query.order === "asc" || req.query.order === "desc") {
-        if (a.entry_.toLowerCase() < b.entry.toLowerCase()) return -1;
-        else if (a.entry.toLowerCase() > b.entry.toLowerCase()) return -1;
+        if (a.adjective_before.toLowerCase() < b.adjective_before.toLowerCase()) return -1;
+        else if (a.adjective_before.toLowerCase() > b.adjective_before.toLowerCase()) return 1;
         else return 0;
       }
     });
@@ -30,7 +24,6 @@ entries.get("/", async (req, res) => {
   } else res.status(200).json(allEntries);
 });
 
-//show
 entries.get("/:id", async (req, res) => {
   const { id } = req.params;
   const oneEntry = await getOneEntry(id);
@@ -41,17 +34,15 @@ entries.get("/:id", async (req, res) => {
   }
 });
 
-//post
 entries.post("/", async (req, res) => {
-    try {
-        const createdEntry = await createEntry(req.body);
-        res.json(createdEntry);
-    } catch (err) {
-        res.status(400).json({ error: "Entry not created!" });
-    }
-})
+  try {
+    const createdEntry = await createEntry(req.body);
+    res.json(createdEntry);
+  } catch (err) {
+    res.status(400).json({ error: "Entry not created!" });
+  }
+});
 
-//delete
 entries.delete("/:id", async (req, res) => {
   try {
     const { id } = req.params;
@@ -68,14 +59,12 @@ entries.delete("/:id", async (req, res) => {
 
 entries.put("/:id", async (req, res) => {
   const { id } = req.params;
-  const updatedEntry = await updateEntry(req.body);
+  const updatedEntry = await updateEntry(id, req.body);
   if (updatedEntry.id) {
-      res.status(200).json(updatedEntry)
-    } else {
-      res.status(404).json("No entry found with that id");
+    res.status(200).json(updatedEntry);
+  } else {
+    res.status(404).json("No entry found with that id");
   }
 });
 
-
-
-module.exports = entries
+module.exports = entries;
