@@ -2,7 +2,7 @@
   "name": "fullstack-portfolio-back",
   "version": "1.0.0",
   "description": "",
-  "app": "server.js",
+  "main": "app.js",
   "scripts": {
     "start": "nodemon server.js",
     "build": "npm install",
