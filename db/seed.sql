@@ -1,4 +1,5 @@
 \c journal_dev;
+
 INSERT INTO entries (date, rating_before, adjective_before, description, is_service_related, service_related_notes, activity, custom_activity, adjective_after, rating_after) VALUES
 ('2023-03-23', 1, 'Stressed', 'Health issues caused anxiety.', false, 'Health worries', NULL, NULL, 'Stressed', 1),
 ('2023-03-24', 3, 'Energetic', 'Joined a dance class.', false, NULL, 'Dancing', 4, 'Energetic', 5),
